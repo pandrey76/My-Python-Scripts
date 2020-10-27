@@ -3,32 +3,34 @@
 import os
 from sys import argv, exit
 import codecs
-
+import chardet
 
 def construct_big_file_from_many_little(path, name, ext):
 
 	for root, dirs, files in os.walk(path):
-		with codecs.open(os.path.join(path, name) + '.' + ext, 'w', "utf-8") as result_file:
+		# with codecs.open(os.path.join(path, name) + '.' + ext, 'wb', "utf-8") as result_file:
+		with open(os.path.join(path, name) + '.' + ext, 'wb') as result_file:
 			count = 0
 			while count <= len(files):
 				try:
 					full_file_path = os.path.join(path, str(count)) + '.' + ext
-					with codecs.open(full_file_path, 'r', "cp1251") as f:
+					# with codecs.open(full_file_path, 'rb', "cp1251") as f:
+					with open(full_file_path, 'rb') as f:
 						print(full_file_path)
 						file_content = f.read()
 
-						marker = "#################"
-						result_file.write(os.linesep)
-						result_file.write(marker)
-						result_file.write('    ')
-						result_file.write(str(count) + '.' + ext)
-						result_file.write('    ')
-						result_file.write(marker)
-						result_file.write(os.linesep)
+						# marker = "#################"
+						# result_file.write(os.linesep)
+						# result_file.write(marker)
+						# result_file.write('    ')
+						# result_file.write(str(count) + '.' + ext)
+						# result_file.write('    ')
+						# result_file.write(marker)
+						# result_file.write(os.linesep)
 						result_file.write(file_content)
-						result_file.write(os.linesep)
-						result_file.write(marker + marker)
-						result_file.write(os.linesep)
+						# result_file.write(os.linesep)
+						# result_file.write(marker + marker)
+						# result_file.write(os.linesep)
 				except FileNotFoundError as ex:
 					print(ex)
 				# except Exception as ex:
